@@ -17,6 +17,7 @@ Hint 2:
 This determines if the current subarray should continue or reset
 - Update max_sum if current_sum is larger
 
+----------------------------------------------------------------
 Psudo Code
 
 1. Initalize current_sum as 0 and max_sum as negative infinity
@@ -26,3 +27,43 @@ Psudo Code
         ii. current_sum + current_element
     b. update max_sum if current_sum exceeds max_sum
 3. Return max_sum at the end
+
+----------------------------------------------------------------
+Explination
+
+Kadanes algorithm works by scanning the array and deciding at each number:
+
+1. Should I include this element in the current subarray?
+
+or
+
+2. Should I start a new subarray starting with this element
+
+----------------------------------------------------------------
+Example Walkthrough:
+Array: [3, -2, 5, -1, 6, -3, 2, 7, -5, 2]
+
+Step-by-Step Breakdown:
+
+| Element (num) | current_sum Calculation         | max_sum Update        | Explanation                                       |
+|---------------|---------------------------------|-----------------------|---------------------------------------------------|
+| 3             | max(3, 0 + 3) = 3              | max(-inf, 3) = 3      | Start a new subarray with 3.                     |
+| -2            | max(-2, 3 + (-2)) = 1          | max(3, 1) = 3         | Include -2 in the subarray; sum becomes 1.       |
+| 5             | max(5, 1 + 5) = 6              | max(3, 6) = 6         | Include 5; sum becomes 6.                        |
+| -1            | max(-1, 6 + (-1)) = 5          | max(6, 5) = 6         | Include -1; sum becomes 5.                       |
+| 6             | max(6, 5 + 6) = 11             | max(6, 11) = 11       | Include 6; sum becomes 11.                       |
+| -3            | max(-3, 11 + (-3)) = 8         | max(11, 8) = 11       | Include -3; sum reduces to 8.                    |
+| 2             | max(2, 8 + 2) = 10             | max(11, 10) = 11      | Include 2; sum becomes 10.                       |
+| 7             | max(7, 10 + 7) = 17            | max(11, 17) = 17      | Include 7; sum becomes 17.                       |
+| -5            | max(-5, 17 + (-5)) = 12        | max(17, 12) = 17      | Include -5; sum reduces to 12.                   |
+| 2             | max(2, 12 + 2) = 14            | max(17, 14) = 17      | Include 2; sum becomes 14.                       |
+
+Final Result:
+- Maximum Subarray Sum: 17
+- Subarray: {5, -1, 6, -3, 2, 7}
+
+Mnemonic to Remember Kadane’s Algorithm:
+"Reset or Grow, Track the Best"
+1. Reset: If adding the current element makes things worse, start fresh with the current element.
+2. Grow: Otherwise, extend the current subarray by adding the element.
+3. Track the Best: Always update max_sum to remember the largest sum found so far.

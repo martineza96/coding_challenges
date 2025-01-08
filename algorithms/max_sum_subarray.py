@@ -15,8 +15,8 @@ def max_subarray_sum(arr):
     current_sum = 0 # start with an empty subarray
 
     for num in arr:
-        current_sum = max(num, current_sum + num) #Grow or reset
-        max_sum = max(max_sum, current_sum) #Update mac sum if needed
+        current_sum = max(num, current_sum + num) # Grow or reset
+        max_sum = max(max_sum, current_sum) # Update max sum if needed
 
     return max_sum
 
