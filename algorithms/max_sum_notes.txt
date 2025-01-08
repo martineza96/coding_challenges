@@ -1,0 +1,28 @@
+Key Goal: Find the maximum sum of any sub array
+
+Brute Force
+- Generate all possible sub arrays
+- Calculate sum of each array
+- O(n^2) or O(n^3)
+
+Optimized approach (Kadanes Algorithm)
+- Kadanes Algorithm solves in O(n) with a single loop
+
+Hint 1: Use two variables
+- current_sum to keep track of the current subarray
+- max_sum to store the maximum sum so far
+
+Hint 2:
+- Compare adding the current elemt to current_sum vs starting a new subarray with just the current element
+This determines if the current subarray should continue or reset
+- Update max_sum if current_sum is larger
+
+Psudo Code
+
+1. Initalize current_sum as 0 and max_sum as negative infinity
+2. Loop though the array
+    a. update current_sum to be the mac of:
+        i. The current element alone
+        ii. current_sum + current_element
+    b. update max_sum if current_sum exceeds max_sum
+3. Return max_sum at the end
