@@ -1,0 +1,71 @@
+Key Goal:
+Find if a given number exists in a row-wise and column-wise sorted matrix.
+
+----------------------------------------------------------------
+Brute Force:
+- Iterate through every element in the matrix.
+- Compare each element with the target value.
+- Time Complexity: O(n * m), where n is the number of rows and m is the number of columns.
+
+----------------------------------------------------------------
+Optimized Approach:
+- Use the sorted properties of the matrix:
+  - Rows are sorted in increasing order (left to right).
+  - Columns are sorted in increasing order (top to bottom).
+- Start at the top-right corner of the matrix:
+  - Move left if the current element is larger than the target.
+  - Move down if the current element is smaller than the target.
+- Time Complexity: O(n + m) with a single traversal of the matrix.
+
+----------------------------------------------------------------
+Psuedo Code:
+
+1. Initialize:
+    - row = 0 (start at the first row).
+    - col = cols - 1 (start at the last column).
+
+2. While row < rows and col >= 0:
+    a. If matrix[row][col] == x, return True.
+    b. If matrix[row][col] > x, move left (col -= 1).
+    c. If matrix[row][col] < x, move down (row += 1).
+
+3. Return False if the loop ends without finding the target.
+
+----------------------------------------------------------------
+Explanation:
+This approach works because of the sorted properties of the matrix:
+1. Start at the top-right corner:
+    - The largest element in the first row.
+    - The smallest element in the last column.
+2. Move left to eliminate larger values in the same row.
+3. Move down to eliminate smaller values in the same column.
+4. This systematically reduces the search space until the target is found or the matrix is exhausted.
+
+----------------------------------------------------------------
+Example Walkthrough:
+Matrix:
+[[3, 30, 38],
+ [20, 52, 54],
+ [35, 60, 69]]
+
+Target: 35
+
+Step-by-Step Breakdown:
+
+| Step | Element (matrix[row][col]) | Action Taken          | Explanation                                             |
+|------|-----------------------------|-----------------------|---------------------------------------------------------|
+| 1    | 38                          | Move left (col -= 1)  | 38 > 35: Move left to a smaller value in the same row.  |
+| 2    | 30                          | Move down (row += 1)  | 30 < 35: Move down to a larger value in the same column.|
+| 3    | 52                          | Move left (col -= 1)  | 52 > 35: Move left to a smaller value in the same row.  |
+| 4    | 20                          | Move down (row += 1)  | 20 < 35: Move down to a larger value in the same column.|
+| 5    | 35                          | Found (return True)   | Target value matches the current element.              |
+
+Final Result:
+- The target value 35 exists in the matrix.
+
+----------------------------------------------------------------
+Mnemonic to Remember:
+"Start at the Corner, Move Left or Down"
+1. Start at the top-right corner.
+2. Move left to eliminate larger values.
+3. Move down to eliminate smaller values.
