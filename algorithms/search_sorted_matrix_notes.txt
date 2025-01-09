@@ -68,4 +68,4 @@ Mnemonic to Remember:
 "Start at the Corner, Move Left or Down"
 1. Start at the top-right corner.
 2. Move left to eliminate larger values.
-3. Move down to eliminate smaller values.
+3. Move down to eliminate smaller values. 
