@@ -1,0 +1,87 @@
+Key Goal:
+Print all elements of a given matrix in spiral order.
+
+----------------------------------------------------------------
+Approach: Boundary Traversal
+- Divide the matrix into boundaries: `top`, `bottom`, `left`, and `right`.
+- Process each boundary in the following order:
+  1. Top row: Left to right.
+  2. Right column: Top to bottom.
+  3. Bottom row: Right to left (if valid).
+  4. Left column: Bottom to top (if valid).
+- Shrink the boundaries inward after processing each layer.
+
+----------------------------------------------------------------
+How Boundaries Work:
+1. **Top Boundary (`top`)**:
+   - Starts at 0 (the first row).
+   - Moves downward (`top += 1`) after processing the top row.
+2. **Bottom Boundary (`bottom`)**:
+   - Starts at the last row (`len(mat) - 1`).
+   - Moves upward (`bottom -= 1`) after processing the bottom row.
+3. **Left Boundary (`left`)**:
+   - Starts at 0 (the first column).
+   - Moves rightward (`left += 1`) after processing the left column.
+4. **Right Boundary (`right`)**:
+   - Starts at the last column (`len(mat[0]) - 1`).
+   - Moves leftward (`right -= 1`) after processing the right column.
+
+----------------------------------------------------------------
+Pseudo Code:
+1. Initialize boundaries:
+   - `top = 0`, `bottom = len(mat) - 1`, `left = 0`, `right = len(mat[0]) - 1`.
+
+2. While `top <= bottom` and `left <= right`:
+   a. Traverse the top row from `left` to `right`. Increment `top`.
+   b. Traverse the right column from `top` to `bottom`. Decrement `right`.
+   c. If `top <= bottom`: Traverse the bottom row from `right` to `left`. Decrement `bottom`.
+   d. If `left <= right`: Traverse the left column from `bottom` to `top`. Increment `left`.
+
+3. Stop when boundaries cross (`top > bottom` or `left > right`).
+
+----------------------------------------------------------------
+Explanation:
+- The algorithm systematically shrinks the matrix by processing its outermost boundary in a spiral order.
+- Each boundary (row or column) is processed exactly once, and boundaries are updated after processing.
+- **Rows**: Controlled by `left` and `right`.
+- **Columns**: Controlled by `top` and `bottom`.
+
+----------------------------------------------------------------
+Example Walkthrough:
+Matrix:
+[[1,  2,  3,  4],
+ [5,  6,  7,  8],
+ [9,  10, 11, 12],
+ [13, 14, 15, 16]]
+
+Step-by-Step Breakdown:
+
+| Step | Action                      | Output                      | Boundaries (top, bottom, left, right) |
+|------|-----------------------------|-----------------------------|---------------------------------------|
+| 1    | Print top row               | [1, 2, 3, 4]               | (1, 3, 0, 3)                         |
+| 2    | Print right column          | [8, 12, 16]                | (1, 3, 0, 2)                         |
+| 3    | Print bottom row (reverse)  | [15, 14, 13]               | (1, 2, 0, 2)                         |
+| 4    | Print left column (reverse) | [9, 5]                     | (1, 2, 1, 2)                         |
+| 5    | Print top row               | [6, 7]                     | (2, 2, 1, 2)                         |
+| 6    | Print right column          | [11]                       | (2, 2, 1, 1)                         |
+| 7    | Print bottom row (reverse)  | [10]                       | (2, 1, 1, 1)                         |
+
+Final Output:
+[1, 2, 3, 4, 8, 12, 16, 15, 14, 13, 9, 5, 6, 7, 11, 10]
+
+----------------------------------------------------------------
+Mnemonic:
+**"Top-Right-Bottom-Left"**
+1. Print **top row**, then increment the `top` boundary.
+2. Print **right column**, then decrement the `right` boundary.
+3. Print **bottom row** in reverse (if valid), then decrement the `bottom` boundary.
+4. Print **left column** in reverse (if valid), then increment the `left` boundary.
+
+----------------------------------------------------------------
+Why It’s Efficient:
+1. **Time Complexity**: \(O(m \times n)\)
+   - Each element is processed exactly once.
+2. **Space Complexity**: \(O(1)\)
+   - No additional data structures are used.
+3. **Avoids Redundancy**:
+   - Boundaries naturally prevent revisiting rows or columns.
